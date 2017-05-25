@@ -5,6 +5,7 @@ export default class SearchBar extends Component {
     super(props);
     this.state = {term: ''};
     this.onInputChange = this.onInputChange.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   onInputChange(event){
     this.setState({
@@ -13,7 +14,18 @@ export default class SearchBar extends Component {
   }
   onFormSubmit(event){
     event.preventDefault();
-    console.log("Form submitted");
+    //Fetch data from API
+    fetch('http://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=50d4cca3f04503d95851ca414e203a0e')
+      .then(function(response) {
+        const weather = response.json();
+        return weather;
+      }).then(function(json){
+        console.log(json)
+      }).catch(function(err) {
+      	// Error :(
+        alert("An error occurred");
+        console.log(err);
+      });
   }
   render(){
     return(
