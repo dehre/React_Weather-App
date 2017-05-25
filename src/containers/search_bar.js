@@ -1,6 +1,9 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {fetchWeather} from "../actions/index";
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   constructor(props){
     super(props);
     this.state = {term: ''};
@@ -15,17 +18,10 @@ export default class SearchBar extends Component {
   onFormSubmit(event){
     event.preventDefault();
     //Fetch data from API
-    fetch('http://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=50d4cca3f04503d95851ca414e203a0e')
-      .then(function(response) {
-        const weather = response.json();
-        return weather;
-      }).then(function(json){
-        console.log(json)
-      }).catch(function(err) {
-      	// Error :(
-        alert("An error occurred");
-        console.log(err);
-      });
+    this.props.fetchWeather(this.state.term);
+    this.setState({
+      term: ""
+    });
   }
   render(){
     return(
@@ -49,3 +45,9 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({fetchWeather},dispatch);
+}
+
+export default connect(null,mapDispatchToProps)(SearchBar);
