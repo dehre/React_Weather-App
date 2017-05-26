@@ -14,9 +14,3 @@ export default class App extends Component {
     );
   }
 }
-
-// API KEY OpenWeatherMap
-// 50d4cca3f04503d95851ca414e203a0e
-
-// example
-// api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=50d4cca3f04503d95851ca414e203a0e
