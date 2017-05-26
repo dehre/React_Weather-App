@@ -1,9 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-
-function round(value, decimals) {
-  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
-}
+import Chart from "../components/chart";
 
 class WeatherList extends Component {
   constructor(props){
@@ -12,11 +9,15 @@ class WeatherList extends Component {
   }
   renderWeather(cityData){
     const name = cityData.city.name;
+    const temps = cityData.list.map(weather => weather.main.temp);
     return(
       <tr key={name}>
         <th scope="row">
           {name}
         </th>
+        <td>
+          <Chart data={temps} color="orange"/>
+        </td>
       </tr>
     );
   }
